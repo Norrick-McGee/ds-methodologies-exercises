@@ -51,8 +51,14 @@ def get_2017_properties():
 
         return dfz2
 
-def join_1617():
-    
+def get_1617():
+    return pd.concat([get_2016_properties(),get_2017_properties()]).drop('id',axis=1)
+
+def drop_null_long_lats(df):
+    return (df[~df.longitude.isnull() | ~df.latitude.isnull()])
+
+def zillow_to_csv(name):
+    (drop_null_long_lats(get_1617())).to_csv(name)
 
 #df2016 = get_2016_properties(dburl)
 #print('done')
